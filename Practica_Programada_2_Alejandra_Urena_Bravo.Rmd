@@ -26,11 +26,27 @@ air_quality <- "https://raw.githubusercontent.com/isa229/programacion_analisis_d
 airquality <- read.csv(air_quality)
 ```
 
-Este conjunto de datos contiene información acerca del índice de calidad del aire (AQI) de distintas ciudades
+b. Este conjunto de datos contiene información acerca del índice de calidad del aire (AQI) de distintas ciudades
 alrededor del mundo. Las coordenadas geográficas de estas se encuentran como lat (latitud) y lng (longitud).
 b. Cuántas categorías diferentes de AQI (AQI Category) hay en este conjunto de datos? Cuáles son?
 (2pts)
 
+```{r}
+distinct_airquality <- airquality |>  
+distinct(AQI.Category) |>
+count(AQI.Category, name = "Count")
+```
+```{r}
+distinct_airquality
+```
+
+Respuesta: En AQI Catgeory existen seis categorias diferentes en el conjunto de datos air_quality, las cuales son:
 
 
+- Good
+- Hazardous
+- Moderate
+- Unhealthy
+- Unhealthy for Sensitive Groups
+- Very unhealthy
 
