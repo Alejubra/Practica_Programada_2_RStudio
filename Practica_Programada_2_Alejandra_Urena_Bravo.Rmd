@@ -21,6 +21,7 @@ library(janitor) #limpieza de datos
 library(lubridate)
 library(hms)
 library(gt)
+library(leaflet)
 ```
 
 ```{r}
@@ -159,5 +160,24 @@ top_10_min_aqi_gt
 ```
 
 
-d. Se solucion punto d, se Obtuvo el promedio del AQI Value por país, y se crearon 2 tablas: Una con los 10 países con los
-valores más bajos de AQI, y otra con los 10 países con los valores más altos de AQI, además estas tablas se presentaron con el paquete gt, añadiendo títulos y subtítulos.
+e. Para los 10 países con los valores promedios más altos de AQI, muestrelos en un mapa de leaflet usando
+addMarkers o un addCircles. En el popup debe colocar el valor promedio del AQI. (6pts)
+
+```{r}
+mapa_top_max_aqi <- top_10_max_aqi |> 
+  leaflet() |> 
+  addTiles() |> 
+  addMarkers(lng = -69.968338, lat = 2.52111, popup = "163.0000") |> 
+  addMarkers(lng = 50.637772, lat = 25.930414, popup = "188.0000") |> 
+  addMarkers(lng = 47.481766, lat = 29.31166, popup = "161.0000") |> 
+  addMarkers(lng = -10.940835, lat = 21.00789, popup = "164.0000") |> 
+  addMarkers(lng = 55.923255, lat = 21.512583, popup = "155.0000") |> 
+  addMarkers(lng = 69.345116, lat = 30.375321, popup = "184.2000") |> 
+  addMarkers(lng = 51.183884, lat = 25.354826, popup = "164.0000") |> 
+  addMarkers(lng = 127.766922, lat = 35.907757, popup = "421.0000") |> 
+  addMarkers(lng = 45.079162, lat = 23.885942, popup = "168.0000") |> 
+  addMarkers(lng = 53.847818, lat = 23.424076, popup = "163.6667")
+
+mapa_top_max_aqi
+```
+
