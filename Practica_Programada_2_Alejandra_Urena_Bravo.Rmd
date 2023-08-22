@@ -22,6 +22,8 @@ library(lubridate)
 library(hms)
 library(gt)
 library(leaflet)
+library(stringr)
+library(writexl)
 ```
 
 ```{r}
@@ -180,4 +182,9 @@ mapa_top_max_aqi <- top_10_max_aqi |>
 
 mapa_top_max_aqi
 ```
+
+f. Escriba el código que exporte los datos en un excel, de tal manera que cada pestaña tenga solamente
+los datos de una categoría de AQI. (Es decir una pestaña para las ciudades cuya categoría es “Good”
+o “Buena”, otra para los que la categoría es “Moderate” y así para cada cateoría). (5pts)
+
 
