@@ -5,6 +5,7 @@ date: "2023-08-17"
 output: html_document
 ---
 
+
 a. Cree un archivo Rmarkdown para resolver esta práctica programada. En el chunk de setup cargue las
 librerías que considere necesarias para resolver la práctica. Los datos para trabajar puede cargarlos con
 la función read_csv de readr directamente de la siguiente dirección: “https://raw.githubusercontent.
@@ -19,11 +20,19 @@ library(tidyr)# doma de datos
 library(janitor) #limpieza de datos
 library(lubridate)
 library(hms)
+library(gt)
 ```
 
 ```{r}
 air_quality <- "https://raw.githubusercontent.com/isa229/programacion_analisis_datos_ii/main/air_quality_index.csv"
 airquality <- read.csv(air_quality)
+```
+
+
+```{r}
+airquality <- airquality |>
+  rename(Categoria = AQI.Category,
+         Ciudad = City)
 ```
 
 b. Este conjunto de datos contiene información acerca del índice de calidad del aire (AQI) de distintas ciudades
@@ -33,8 +42,8 @@ b. Cuántas categorías diferentes de AQI (AQI Category) hay en este conjunto de
 
 ```{r}
 distinct_airquality <- airquality |>  
-distinct(AQI.Category) |>
-count(AQI.Category, name = "Count")
+distinct(Categoria) |>
+count(Categoria, name = "Cuenta")
 ```
 ```{r}
 distinct_airquality
@@ -49,4 +58,38 @@ Respuesta: En AQI Catgeory existen seis categorias diferentes en el conjunto de 
 - Unhealthy
 - Unhealthy for Sensitive Groups
 - Very unhealthy
+
+
+c. Cree una tabla que indique la cantidad de ciudades que hay en cada categoría de AQI (AQI Category).
+Adicionalmente, traduzca las categorías a español, por ejemplo “Good” sería “Bueno”. Presente esta
+tabla con el paquete gt, añadiendo títulos y subtítulos (10pts).
+
+
+```{r}
+distinct_airquality_by_city <- airquality |>
+  group_by(Categoria) |>
+  summarise(Ciudad = n_distinct(Ciudad))
+
+distinct_airquality_by_city
+```
+
+
+```{r}
+distinct_airquality_by_city <- distinct_airquality_by_city |> 
+  mutate(Categoria = c("Bueno", "Peligroso", "Moderado", "Insalubre", "Insalubre para grupos sensibles", "Muy insalubre"))
+```
+
+
+```{r}
+distinct_airquality_by_city_gt <- distinct_airquality_by_city |> 
+  gt() |> 
+   tab_header(
+    title = "Cantidad de ciudades según la calidad del aire",
+    subtitle = "Ciudades de todo el mundo"
+  )
+```
+
+```{r}
+distinct_airquality_by_city_gt
+```
 
