@@ -99,26 +99,65 @@ valores más bajos de AQI, y otra que muestre los 10 países con los valores má
 estas tablas con el paquete gt, añadiendo títulos y subtítulos (10pts)
 
 ```{r}
-tabla_promedio_aqi <- air_quality |> 
-  group_by(Pais) |> 
-  summarise(promedio_aqi_value = mean(`AQI Value`))
-
-top_10_max <- promedio_aqi |> 
-arrange(desc(promedio_aqi_value) |> 
-head(10)
-
-top_10_min <- promedio_aqi |> 
-arrange(promedio_aqi_value) |> 
-head(10)
+# Calcular el promedio del AQI por país
+tabla_promedio_aqi <- airquality |>
+  group_by(Pais) |>
+  summarise(promedio_aqi_value = mean(AQI.Value))
 ```
-
 
 ```{r}
-terremotos_costa_rica_10_magnitudes <- datos_terremotos |>
-   filter(Latitud >= 8, Latitud <= 11, 
-          Longitud >= -85, Longitud <= -82, 
-          Tipo == "Earthquake") |>
-  arrange(desc(Magnitud)) |>
-  head(10)|>
-  select(-Fecha, -Hora, -Tipo_magnitud, -ID)
+tabla_promedio_aqi_gt <- tabla_promedio_aqi |> 
+  gt() |> 
+   tab_header(
+    title = "Promedio del AQI por país",
+    subtitle = "Aqi = Valor de cailidad del aire"
+  )
 ```
+
+```{r}
+tabla_promedio_aqi_gt
+```
+
+```{r}
+# Obtener los 10 países con los valores promedio de AQI más altos
+top_10_max_aqi <- tabla_promedio_aqi |>
+  arrange(desc(promedio_aqi_value)) |>
+  head(10)
+```
+
+```{r}
+top_10_max_aqi_gt <- top_10_max_aqi |> 
+  gt() |> 
+   tab_header(
+    title = "10 países con los valores promedio de AQI más altos",
+    subtitle = "Aqi = Valor de cailidad del aire"
+  )
+```
+
+```{r}
+top_10_max_aqi_gt
+```
+
+```{r}
+# Obtener los 10 países con los valores promedio de AQI más bajos
+top_10_min_aqi <- tabla_promedio_aqi |>
+  arrange(promedio_aqi_value) |>
+  head(10)
+```
+
+```{r}
+top_10_min_aqi_gt <- top_10_min_aqi |> 
+  gt() |> 
+   tab_header(
+    title = "10 países con los valores promedio de AQI más bajos",
+    subtitle = "Aqi = Valor de cailidad del aire"
+  )
+```
+
+```{r}
+top_10_min_aqi_gt
+```
+
+
+d. Se solucion punto d, se Obtuvo el promedio del AQI Value por país, y se crearon 2 tablas: Una con los 10 países con los
+valores más bajos de AQI, y otra con los 10 países con los valores más altos de AQI, además estas tablas se presentaron con el paquete gt, añadiendo títulos y subtítulos.
