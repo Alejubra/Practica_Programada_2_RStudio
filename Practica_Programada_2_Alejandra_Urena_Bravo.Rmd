@@ -32,7 +32,8 @@ airquality <- read.csv(air_quality)
 ```{r}
 airquality <- airquality |>
   rename(Categoria = AQI.Category,
-         Ciudad = City)
+         Ciudad = City,
+         Pais = Country)
 ```
 
 b. Este conjunto de datos contiene información acerca del índice de calidad del aire (AQI) de distintas ciudades
@@ -93,3 +94,31 @@ distinct_airquality_by_city_gt <- distinct_airquality_by_city |>
 distinct_airquality_by_city_gt
 ```
 
+d. Obtenga el promedio del AQI Value por país, y cree 2 tablas: Una que muestre los 10 países con los
+valores más bajos de AQI, y otra que muestre los 10 países con los valores más altos de AQI. Presente
+estas tablas con el paquete gt, añadiendo títulos y subtítulos (10pts)
+
+```{r}
+tabla_promedio_aqi <- air_quality |> 
+  group_by(Pais) |> 
+  summarise(promedio_aqi_value = mean(`AQI Value`))
+
+top_10_max <- promedio_aqi |> 
+arrange(desc(promedio_aqi_value) |> 
+head(10)
+
+top_10_min <- promedio_aqi |> 
+arrange(promedio_aqi_value) |> 
+head(10)
+```
+
+
+```{r}
+terremotos_costa_rica_10_magnitudes <- datos_terremotos |>
+   filter(Latitud >= 8, Latitud <= 11, 
+          Longitud >= -85, Longitud <= -82, 
+          Tipo == "Earthquake") |>
+  arrange(desc(Magnitud)) |>
+  head(10)|>
+  select(-Fecha, -Hora, -Tipo_magnitud, -ID)
+```
