@@ -188,3 +188,22 @@ los datos de una categoría de AQI. (Es decir una pestaña para las ciudades cuy
 o “Buena”, otra para los que la categoría es “Moderate” y así para cada cateoría). (5pts)
 
 
+```{r}
+good <- subset(airquality, Categoria == "Good") |> 
+  distinct(Ciudad)
+moderate <- subset(airquality, Categoria == "Moderate")|> 
+  distinct(Ciudad)
+unhealthy <- subset(airquality, Categoria == "Unhealthy") |> 
+  distinct(Ciudad)
+very_unhealthy <- subset(airquality, Categoria == "Very Unhealthy")|> 
+  distinct(Ciudad)
+unhealthy_sensitive_groups<- subset(airquality, Categoria == "Unhealthy for Sensitive Groups")|> 
+  distinct(Ciudad)
+hazardous <- subset(airquality, Categoria == "Hazardous")|> 
+  distinct(Ciudad)
+
+df_calidad_aire_ciudades <- list("Bueno" = good, "Moderado" = moderate, "Insalubre" = unhealthy, "Muy Insalubre" = very_unhealthy, "Insalubre para grupos sensibles" = unhealthy_sensitive_groups, "Peligroso" = hazardous)
+
+write_xlsx(df_calidad_aire_ciudades, path = "datos/df_calidad_aire_ciudades.xlsx")
+
+```
